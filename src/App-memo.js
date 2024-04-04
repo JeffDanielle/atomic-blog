@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { faker } from "@faker-js/faker";
 
 function createRandomPost() {
@@ -33,10 +33,12 @@ function App() {
     setPosts([]);
   }
 
-  const archiveOptions = {
-    show: false,
-    title: "Post archive in additional component",
-  }
+  const archiveOptions = useMemo(() => {
+    return {
+      show: false,
+      title: `Post archive in additional ${posts.length} component`,
+    }
+  }, [posts.length]);
 
   // Whenever `isFakeDark` changes, we toggle the `fake-dark-mode` class on the HTML element (see in "Elements" dev tool).
   useEffect(
